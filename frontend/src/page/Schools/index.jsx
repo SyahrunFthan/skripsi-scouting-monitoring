@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DefaultLayout, SchoolComponents } from "../../components";
 import {
+  createImportDataApi,
   deleteSchoolsById,
   patchSchoolsApi,
   showConfirm,
   showSuccess,
 } from "../../utils";
+import * as XLSX from "xlsx";
 
 const Schools = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -54,6 +56,60 @@ const Schools = () => {
     );
   };
 
+  const handleImportData = async () => {
+    const filepaths = await window.showOpenFilePicker({
+      types: [
+        {
+          description: "Excel Files",
+          accept: {
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+              [".xlsx"],
+            "application/vnd.ms-excel": [".xls"],
+          },
+        },
+      ],
+      multiple: true,
+    });
+
+    const filedata = await Promise.all(
+      filepaths.map(async (fileHanlde) => {
+        const file = await fileHanlde.getFile();
+
+        const data = await file.arrayBuffer();
+        const workbook = XLSX.read(data, { type: "binary" });
+
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+
+        const jsondata = XLSX.utils.sheet_to_json(worksheet);
+
+        const dataSchool = jsondata.map((item) => {
+          return {
+            name: item?.["Nama Sekolah"],
+            numberGudep: item?.["No Gudep"],
+            total: item?.["Total Anggota"],
+            address: item?.["Alamat"],
+          };
+        });
+
+        return dataSchool;
+      })
+    );
+
+    try {
+      setIsLoading(true);
+      const response = await createImportDataApi({ data: filedata[0] });
+      if (response?.status == 201) {
+        showSuccess(response?.data?.message, 1000, () => {
+          patchDataSchools();
+        });
+      }
+    } catch (error) {
+      console.log(error?.response);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     patchDataSchools();
   }, [search, page]);
@@ -71,6 +127,7 @@ const Schools = () => {
         totalPage={totalPage}
         totalRow={totalRow}
         onClickDelete={(id) => handleDeleteSchool(id)}
+        onImportData={handleImportData}
       />
     </DefaultLayout>
   );

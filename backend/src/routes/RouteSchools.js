@@ -10,6 +10,7 @@ router.post(
   schemaValidate(Validation.schemaSchools),
   SchoolControllers.createSchools
 );
+router.post("/import-data", SchoolControllers.createImporData)
 router.patch(
   "/:id",
   schemaValidate(Validation.schemaSchools),

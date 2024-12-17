@@ -11,7 +11,6 @@ import {
   FaEdit,
   FaPlus,
   FaTrashAlt,
-  FaUpload,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -26,6 +25,7 @@ const SchoolComponents = ({
   totalRow,
   totalPage,
   onClickDelete,
+  onImportData
 }) => {
   const navigate = useNavigate();
   return (
@@ -41,8 +41,7 @@ const SchoolComponents = ({
                 icon={<FaPlus />}
                 onClick={() => navigate("/schools/create")}
               />
-              <Button title={"Download Data"} icon={<FaUpload />} />
-              <Button title={"Import Data"} icon={<FaDownload />} />
+              <Button title={"Import Data"} icon={<FaDownload />} onClick={onImportData} />
             </div>
             <InputSearch search={search} setSearch={setSearch} />
           </div>

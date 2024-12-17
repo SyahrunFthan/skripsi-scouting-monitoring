@@ -38,6 +38,7 @@ export const updateSchoolsApi = (id, data) =>
   });
 export const patchSchoolsById = (id) => API.get(`/schools/${id}`);
 export const deleteSchoolsById = (id) => API.delete(`/schools/${id}`);
+export const createImportDataApi = (data) => API.post("/schools/import-data", data)
 // End Schools Path
 
 // Contribution Path

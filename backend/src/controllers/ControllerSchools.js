@@ -97,6 +97,53 @@ class SchoolControllers {
     }
   }
 
+  static async createImporData(req, res) {
+    try {
+      const { data } = req.body;
+      const checkSchool = await Schools.findAll({
+        attributes: ["name"],
+      });
+
+      const schoolList = checkSchool.map((school) => school.name);
+
+      const schoolSet = new Set();
+      const duplicateSchool = [];
+
+      data.forEach((item) => {
+        if (schoolSet.has(item?.name)) {
+          duplicateSchool.push(item?.name);
+        } else {
+          schoolSet.add(item?.name);
+        }
+      });
+
+      if (duplicateSchool.length > 0)
+        return res.status(400).json({ message: "Ada sekolah yang duplikat!" });
+
+      const duplicateSchoolInDB = data.filter((item) =>
+        schoolList.includes(item?.name)
+      );
+
+      if (duplicateSchoolInDB.length > 0)
+        return res
+          .status(400)
+          .json({ message: "Ada data yang sama dalam database!" });
+      
+      for(const row of data){
+        await Schools.create({
+          name: row?.name,
+          number_gudep: row?.numberGudep,
+          total_participant: row?.total,
+          address: row?.address
+        })
+      }
+
+      return res.status(201).json({message: "Data berhasil di upload!"})
+    } catch (error) {
+      return res.status(500).json({ message: error?.message });
+    }
+  }
+
   static async updateSchools(req, res) {
     try {
       const { name, noGudep, total, address } = req.body;
