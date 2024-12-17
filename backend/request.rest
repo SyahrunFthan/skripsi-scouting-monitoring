@@ -1,0 +1,12 @@
+GET http://localhost:5001/activities/12312
+
+###
+POST http://localhost:5001/activities/create
+Content-Type: application/json
+
+{
+    "name": "Bantara",
+    "point": 2,
+    "date": "2024-10-10",
+    "scale": "Kota"
+}
