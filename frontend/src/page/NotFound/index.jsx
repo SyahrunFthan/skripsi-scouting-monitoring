@@ -13,7 +13,7 @@ const NotFound = () => {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <Link
-          to="/dashboard"
+          to="/"
           className="mt-6 inline-block px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-500 focus:ring focus:ring-blue-300"
         >
           Back to Home

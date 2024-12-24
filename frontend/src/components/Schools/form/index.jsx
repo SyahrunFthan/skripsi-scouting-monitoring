@@ -171,7 +171,7 @@ const FormSchoolComponents = ({
                 </button>
               )}
               <Link
-                to={"/schools"}
+                to={"/admin/schools"}
                 className="bg-white w-full lg:w-[25%] justify-center shadow-md text-black border-primary border  px-4 py-2 lg:px-3 lg:py-1.5 rounded-md gap-2 flex items-center"
               >
                 <FaArrowLeft />

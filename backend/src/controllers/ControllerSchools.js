@@ -2,6 +2,8 @@ const { Op } = require("sequelize");
 const Schools = require("../models/Schools");
 const path = require("path");
 const fs = require("fs");
+const Activities = require("../models/Activities");
+const Contributions = require("../models/Contributions");
 
 class SchoolControllers {
   static async getSchoolsData(req, res) {
@@ -128,17 +130,17 @@ class SchoolControllers {
         return res
           .status(400)
           .json({ message: "Ada data yang sama dalam database!" });
-      
-      for(const row of data){
+
+      for (const row of data) {
         await Schools.create({
           name: row?.name,
           number_gudep: row?.numberGudep,
           total_participant: row?.total,
-          address: row?.address
-        })
+          address: row?.address,
+        });
       }
 
-      return res.status(201).json({message: "Data berhasil di upload!"})
+      return res.status(201).json({ message: "Data berhasil di upload!" });
     } catch (error) {
       return res.status(500).json({ message: error?.message });
     }
@@ -258,6 +260,74 @@ class SchoolControllers {
       return res.status(200).json({ message: "Berhasil" });
     } catch (error) {
       return res.status(500).json({ message: error?.messages });
+    }
+  }
+
+  static async searchSchool(req, res) {
+    try {
+      const limit = 4;
+      const search = req.query.search;
+
+      let response;
+      if (search !== "") {
+        response = await Schools.findAll({
+          where: {
+            name: {
+              [Op.like]: `%${search}%`,
+            },
+          },
+          limit: limit,
+          order: [["createdAt", "ASC"]],
+        });
+      } else {
+        response = [];
+      }
+
+      return res.status(200).json({ response });
+    } catch (error) {
+      return res.status(500).json({ message: error?.message });
+    }
+  }
+
+  static async getSchoolSearchById(req, res) {
+    try {
+      const { id } = req.params;
+      const totalActivities = await Activities.count();
+      const totalContribution = await Contributions.count({
+        where: {
+          school_id: id,
+        },
+      });
+
+      let calculate;
+      if (totalActivities === 0) return calculate == 0;
+      calculate = Number(
+        ((totalContribution / totalActivities) * 100).toFixed(0)
+      );
+
+      const response = await Schools.findOne({
+        where: {
+          id_school: id,
+        },
+      });
+
+      const contributions = await Contributions.findAll({
+        include: {
+          model: Activities,
+          as: "activity",
+        },
+        where: {
+          school_id: id,
+        },
+      });
+
+      const totalPoints = contributions.reduce((sum, item) => {
+        return sum + (item?.activity?.points || 0); // Pastikan poin default adalah 0 jika undefined
+      }, 0);
+
+      return res.status(200).json({ calculate, response, totalPoints });
+    } catch (error) {
+      return res.status(500).json({ message: error?.message });
     }
   }
 }

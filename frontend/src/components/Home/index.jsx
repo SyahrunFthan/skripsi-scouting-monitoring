@@ -1,6 +1,7 @@
 import CardSchoolComponents from "./card-school";
 import CardWidgetComponents from "./card-widget";
 import ChartDashboardComponents from "./chart";
+import ActivityChart from "./chart-home";
 import DashboardComponents from "./page";
 
 export {
@@ -8,4 +9,5 @@ export {
   CardWidgetComponents,
   ChartDashboardComponents,
   CardSchoolComponents,
+  ActivityChart,
 };

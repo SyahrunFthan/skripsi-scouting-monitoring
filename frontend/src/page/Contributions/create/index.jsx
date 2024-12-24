@@ -53,7 +53,7 @@ const ContributionCreate = () => {
       const response = await postContributionApi(formData);
       if (response?.status == 201) {
         showSuccess(response?.data?.message, 1000, () => {
-          navigate("/contributions");
+          navigate("/admin/contributions");
         });
       }
     } catch (error) {

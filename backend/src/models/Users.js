@@ -19,7 +19,7 @@ const Users = db.define(
       type: DataTypes.CHAR(50),
     },
     password: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     image: {
       type: DataTypes.STRING,

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply text-black;
+  @apply text-black outline-none;
 }
 
 .no-scrollbar::-webkit-scrollbar {

@@ -39,6 +39,7 @@ const Activities = () => {
           if (response?.status == 200) {
             showSuccess(response?.data?.message, 1000, () => {
               patchDataActivities();
+              setSearch("");
             });
           }
         } catch (error) {

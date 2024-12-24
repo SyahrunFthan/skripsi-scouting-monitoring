@@ -31,7 +31,7 @@ const ActivitiesComponents = ({
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <Button
-                onClick={() => navigate("/activities/create")}
+                onClick={() => navigate("/admin/activities/create")}
                 title={"Tambah Data"}
                 icon={<FaPlus />}
               />
@@ -80,7 +80,7 @@ const ActivitiesComponents = ({
                           <td className="px-6 py-4">{item?.points}</td>
                           <td className="px-6 py-4 gap-2 flex">
                             <Link
-                              to={`/activities/edit/${item?.id_activity}`}
+                              to={`/admin/activities/edit/${item?.id_activity}`}
                               className="font-medium text-blue-600 hover:underline"
                             >
                               <FaEdit />

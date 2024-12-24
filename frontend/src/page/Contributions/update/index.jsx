@@ -28,7 +28,7 @@ const EditContribution = () => {
       const response = await updateContributionApi(params?.id, formData);
       if (response?.status == 200) {
         showSuccess(response?.data?.message, 1000, () => {
-          navigate("/contributions");
+          navigate("/admin/contributions");
         });
       }
     } catch (error) {

@@ -71,7 +71,7 @@ const CreateSchools = () => {
       const response = await postSchoolsApi(formdata);
       if (response?.status == 201) {
         showSuccess(response?.data?.message, 1000, () => {
-          navigate("/schools");
+          navigate("/admin/schools");
         });
         setFormData({
           name: "",

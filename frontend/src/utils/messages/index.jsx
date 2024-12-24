@@ -28,7 +28,7 @@ export const showError = (text, duration) => {
   });
 };
 
-export const showConfirm = (title, text, action) => {
+export const showConfirm = (title, text, textButton, action) => {
   Swal.fire({
     title: title,
     text: text,
@@ -36,7 +36,7 @@ export const showConfirm = (title, text, action) => {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
+    confirmButtonText: textButton ? textButton : "Yes, delete it!",
   }).then(async (result) => {
     if (result.isConfirmed) {
       if (typeof action === "function") {

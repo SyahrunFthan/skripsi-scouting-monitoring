@@ -2,15 +2,18 @@ const express = require("express");
 const ContributionController = require("../controllers/ControllerContributions");
 const schemaValidate = require("../middleware/Validate");
 const Validation = require("../validations/Validation");
+const Authentication = require("../middleware/Authentication");
 
 const router = express.Router();
 
+router.use(Authentication.authenticate);
 router.post(
   "/create",
   schemaValidate(Validation.schemaContributions),
   ContributionController.createContribution
 );
 router.get("/", ContributionController.patchDataContribution);
+router.get("/dashboard", ContributionController.patchDataDashboard);
 router.get(
   "/school-activities",
   ContributionController.patchSchoolAndActivities

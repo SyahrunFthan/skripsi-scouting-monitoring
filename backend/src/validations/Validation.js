@@ -18,6 +18,17 @@ class Validation {
     school: z.string().min(1, { message: "Pilih sekolah!" }),
     activity: z.string().min(1, { message: "Pilih kegiatan!" }),
   });
+
+  static schemaAuth = z.object({
+    email: z.string().min(1, { message: "Email harus di isi!" }),
+    password: z.string().min(1, { message: "Password harus di isi!" }),
+  });
+
+  static schemaCreateUser = z.object({
+    email: z.string().min(1, { message: "Email harus di isi!" }),
+    name: z.string().min(1, { message: "Nama harus di isi!" }),
+    password: z.string().min(1, { message: "Password harus di isi!" }),
+  });
 }
 
 module.exports = Validation;

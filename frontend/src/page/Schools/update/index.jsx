@@ -53,7 +53,7 @@ const EditSchools = () => {
       const response = await updateSchoolsApi(params?.id, formdata);
       if (response?.status == 200) {
         showSuccess(response?.data?.message, 1500, () => {
-          navigate("/schools");
+          navigate("/admin/schools");
         });
         setFormData({
           name: "",

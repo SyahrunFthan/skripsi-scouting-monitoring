@@ -1,9 +1,14 @@
 import axios from "axios";
+import { getItem } from "../storages";
 
 const API = axios.create({ baseURL: "http://localhost:5001" });
 
 API.interceptors.request.use((req) => {
   req.withCredentials = true;
+  const profile = getItem("profile");
+  if (profile?.token) {
+    req.headers.Authorization = `Bearer ${profile?.token}`;
+  }
 
   return req;
 });
@@ -38,7 +43,12 @@ export const updateSchoolsApi = (id, data) =>
   });
 export const patchSchoolsById = (id) => API.get(`/schools/${id}`);
 export const deleteSchoolsById = (id) => API.delete(`/schools/${id}`);
-export const createImportDataApi = (data) => API.post("/schools/import-data", data)
+export const createImportDataApi = (data) =>
+  API.post("/schools/import-data", data);
+export const patchSearchSchoolApi = (search) =>
+  API.get(`/schools/search-key?search=${search}`);
+export const patchSearchSchoolByIdApi = (id) =>
+  API.get(`/schools/search-key/get-id/${id}`);
 // End Schools Path
 
 // Contribution Path
@@ -53,3 +63,14 @@ export const deleteContributionApi = (id) => API.delete(`/contributions/${id}`);
 export const updateContributionApi = (id, data) =>
   API.patch(`/contributions/${id}`, data);
 // End Contribution Path
+
+// Dashboard Path
+export const patchDataFromDashboardApi = () =>
+  API.get("/contributions/dashboard");
+// End Dashboard Path
+
+// Auth Path
+export const postAuthLoginApi = (data) => API.post("/auth", data);
+export const removeTokenApi = (id) => API.delete(`/auth/remove-token/${id}`);
+export const patchUserLoginApi = (id) => API.get(`/auth/${id}`);
+// End Auth Path

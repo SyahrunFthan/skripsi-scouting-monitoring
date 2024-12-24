@@ -2,9 +2,11 @@ const express = require("express");
 const ActivitiesController = require("../controllers/ControllerActivities");
 const Validation = require("../validations/Validation");
 const schemaValidate = require("../middleware/Validate");
+const Authentication = require("../middleware/Authentication");
 
 const router = express.Router();
 
+router.use(Authentication.authenticate);
 router.post(
   "/create",
   schemaValidate(Validation.schemaActivities),

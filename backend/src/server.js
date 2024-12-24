@@ -10,14 +10,15 @@ const db = require("./configs/Database");
 const routeActivities = require("./routes/RouteActivities");
 const routeSchools = require("./routes/RouteSchools");
 const routeContribution = require("./routes/RouteContribution");
-// const createModel = require("./models/Contributions");
+const routeAuth = require("./routes/RouteAuth");
+// const createModel = require("./models/Users");
 
 const app = express();
 
 try {
   db.authenticate();
   console.log("Database connected...");
-  // createModel.sync();
+  // createModel.sync({ alter: true });
 } catch (error) {
   console.log(error);
 }
@@ -30,6 +31,7 @@ app.use(fileUpload());
 app.use("/public", express.static("public"));
 
 // Route Path
+app.use("/auth", routeAuth);
 app.use("/activities", routeActivities);
 app.use("/schools", routeSchools);
 app.use("/contributions", routeContribution);

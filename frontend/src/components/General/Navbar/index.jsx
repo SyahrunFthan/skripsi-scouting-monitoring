@@ -7,6 +7,7 @@ import {
 import React, { Fragment, useState } from "react";
 import {
   FaBars,
+  FaInbox,
   FaLongArrowAltLeft,
   FaSignOutAlt,
   FaStream,
@@ -15,7 +16,7 @@ import {
 } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 
-const NavbarComponents = ({ menus }) => {
+const NavbarComponents = ({ menus, data, onClickLogout }) => {
   const [showList, setShowList] = useState(false);
   const location = useLocation();
 
@@ -104,7 +105,13 @@ const NavbarComponents = ({ menus }) => {
 
       <Popover>
         <PopoverButton className="outline-none">
-          <img src="/assets/images/user-01.png" className="w-8 h-8" alt="" />
+          <img
+            src={
+              data?.path_image ? data?.path_image : "/assets/images/user-01.png"
+            }
+            className="w-8 h-8"
+            alt=""
+          />
         </PopoverButton>
 
         <PopoverPanel
@@ -114,18 +121,22 @@ const NavbarComponents = ({ menus }) => {
           <div className="flex flex-col py-4 gap-2">
             <div className="flex items-center gap-3">
               <FaUserCircle className="text-gray-400" />
-              <span className="text-sm text-gray-400">Profil Saya</span>
+              <span className="text-sm text-gray-400">{data?.name}</span>
             </div>
             <div className="flex items-center gap-3">
-              <FaUserCog className="text-gray-400" />
-              <span className="text-sm text-gray-400">Pengaturan Akun</span>
+              <FaInbox className="text-gray-400" />
+              <span className="text-sm text-gray-400">{data?.email}</span>
             </div>
 
             <div className="border-t mt-2">
-              <div className="flex items-center gap-3 mt-3">
+              <button
+                type="button"
+                onClick={onClickLogout}
+                className="flex items-center gap-3 mt-3 w-full"
+              >
                 <FaSignOutAlt className="text-gray-400" />
                 <span className="text-sm text-gray-400">Keluar Aplikasi</span>
-              </div>
+              </button>
             </div>
           </div>
         </PopoverPanel>

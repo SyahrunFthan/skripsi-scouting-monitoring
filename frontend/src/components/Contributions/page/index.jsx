@@ -33,7 +33,7 @@ const ContributionComponents = ({
               <Button
                 title={"Tambah Data"}
                 icon={<FaPlus />}
-                onClick={() => navigate("/contributions/create")}
+                onClick={() => navigate("/admin/contributions/create")}
               />
             </div>
             <InputSearch search={search} setSearch={setSearch} />
@@ -83,7 +83,7 @@ const ContributionComponents = ({
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
                               <Link
-                                to={`/contributions/edit/${item?.id_contribution}`}
+                                to={`/admin/contributions/edit/${item?.id_contribution}`}
                                 className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                               >
                                 <FaEdit />

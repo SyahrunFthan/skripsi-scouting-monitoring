@@ -45,6 +45,7 @@ const Schools = () => {
           if (response?.status == 200) {
             showSuccess(response?.data?.message, 1500, () => {
               patchDataSchools();
+              setSearch("");
             });
           }
         } catch (error) {

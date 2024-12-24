@@ -10,3 +10,13 @@ Content-Type: application/json
     "date": "2024-10-10",
     "scale": "Kota"
 }
+
+###
+POST http://localhost:5001/auth/create
+Content-Type: application/json
+
+{
+    "name": "Dwiki Aditya",
+    "email": "admin.skripsi@gmail.com",
+    "password": "@Admin2024"
+}

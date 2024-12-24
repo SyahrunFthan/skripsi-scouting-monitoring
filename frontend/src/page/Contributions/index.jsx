@@ -47,6 +47,7 @@ const Contributions = () => {
           if (response?.status == 200) {
             showSuccess(response?.data?.message, 1000, () => {
               getDataContibution();
+              setSearch("");
             });
           }
         } catch (error) {
@@ -60,7 +61,7 @@ const Contributions = () => {
 
   useEffect(() => {
     getDataContibution();
-  }, []);
+  }, [search]);
   return (
     <DefaultLayout isLoading={isLoading}>
       <ContributionComponents

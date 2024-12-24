@@ -6,12 +6,7 @@ import {
   Pagination,
   TitleComponents,
 } from "../../General";
-import {
-  FaDownload,
-  FaEdit,
-  FaPlus,
-  FaTrashAlt,
-} from "react-icons/fa";
+import { FaDownload, FaEdit, FaPlus, FaTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
 const SchoolComponents = ({
@@ -25,7 +20,7 @@ const SchoolComponents = ({
   totalRow,
   totalPage,
   onClickDelete,
-  onImportData
+  onImportData,
 }) => {
   const navigate = useNavigate();
   return (
@@ -39,9 +34,13 @@ const SchoolComponents = ({
               <Button
                 title={"Tambah Data"}
                 icon={<FaPlus />}
-                onClick={() => navigate("/schools/create")}
+                onClick={() => navigate("/admin/schools/create")}
               />
-              <Button title={"Import Data"} icon={<FaDownload />} onClick={onImportData} />
+              <Button
+                title={"Import Data"}
+                icon={<FaDownload />}
+                onClick={onImportData}
+              />
             </div>
             <InputSearch search={search} setSearch={setSearch} />
           </div>
@@ -109,7 +108,7 @@ const SchoolComponents = ({
                           <td className="px-6 py-4">{item?.address}</td>
                           <td className="px-6 py-4 gap-2 flex">
                             <Link
-                              to={`/schools/edit/${item?.id_school}`}
+                              to={`/admin/schools/edit/${item?.id_school}`}
                               className="font-medium text-blue-600 hover:underline"
                             >
                               <FaEdit />

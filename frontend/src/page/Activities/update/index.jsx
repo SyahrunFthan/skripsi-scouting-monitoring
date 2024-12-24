@@ -44,7 +44,7 @@ const EditActivities = () => {
       const response = await updateActivitiesData(routes?.id, formData);
       if (response?.status == 200) {
         showSuccess(response?.data?.message, 1500, () => {
-          navigate("/activities");
+          navigate("/admin/activities");
         });
       }
     } catch (error) {

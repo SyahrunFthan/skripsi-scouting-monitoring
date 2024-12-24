@@ -24,6 +24,7 @@ const CreataActivities = () => {
           point: "",
           scale: "",
         });
+        setErrors({});
         showSuccess("Created Success");
       }
     } catch (error) {
@@ -55,7 +56,7 @@ const CreataActivities = () => {
           scale: "",
         });
         showSuccess("Created Success", 1500, () => {
-          navigate("/activities");
+          navigate("/admin/activities");
         });
       }
     } catch (error) {
