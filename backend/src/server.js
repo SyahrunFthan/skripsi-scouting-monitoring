@@ -11,14 +11,15 @@ const routeActivities = require("./routes/RouteActivities");
 const routeSchools = require("./routes/RouteSchools");
 const routeContribution = require("./routes/RouteContribution");
 const routeAuth = require("./routes/RouteAuth");
-// const createModel = require("./models/Users");
+const routeNews = require("./routes/RouteNews");
+// const createModel = require("./models/News");
 
 const app = express();
 
 try {
   db.authenticate();
   console.log("Database connected...");
-  // createModel.sync({ alter: true });
+  // createModel.sync();
 } catch (error) {
   console.log(error);
 }
@@ -35,6 +36,7 @@ app.use("/auth", routeAuth);
 app.use("/activities", routeActivities);
 app.use("/schools", routeSchools);
 app.use("/contributions", routeContribution);
+app.use("/news", routeNews);
 
 const port = process.env.PORT_APP || 5001;
 

@@ -29,6 +29,12 @@ class Validation {
     name: z.string().min(1, { message: "Nama harus di isi!" }),
     password: z.string().min(1, { message: "Password harus di isi!" }),
   });
+
+  static schemaNews = z.object({
+    title: z.string().min(1, { message: "Judul harus di isi!" }),
+    subTitle: z.string().min(1, { message: "Sub Judul harus di isi!" }),
+    content: z.string().min(1, { message: "Isi content harus di isi!" }),
+  });
 }
 
 module.exports = Validation;

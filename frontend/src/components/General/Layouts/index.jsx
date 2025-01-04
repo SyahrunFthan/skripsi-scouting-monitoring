@@ -5,6 +5,7 @@ import {
   FaChalkboard,
   FaChartLine,
   FaFileAlt,
+  FaNewspaper,
   FaTachometerAlt,
   FaTrophy,
 } from "react-icons/fa";
@@ -44,6 +45,11 @@ const DefaultLayout = ({ children, isLoading }) => {
       name: "Data Kontribusi",
       path: "/admin/contributions",
       icon: <FaTrophy />,
+    },
+    {
+      name: "Data Berita",
+      path: "/admin/news",
+      icon: <FaNewspaper />,
     },
   ];
 

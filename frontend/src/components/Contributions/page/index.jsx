@@ -6,8 +6,8 @@ import {
   Pagination,
   TitleComponents,
 } from "../../General";
-import { FaEdit, FaPlus, FaTrashAlt } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { FaImages, FaPlus, FaTrashAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const ContributionComponents = ({
   title,
@@ -20,6 +20,7 @@ const ContributionComponents = ({
   totalPages,
   contributions,
   onClickDelete,
+  onClickDetails,
 }) => {
   const navigate = useNavigate();
   return (
@@ -82,12 +83,15 @@ const ContributionComponents = ({
                           </td>
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
-                              <Link
-                                to={`/admin/contributions/edit/${item?.id_contribution}`}
-                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  onClickDetails(item?.id_contribution)
+                                }
+                                className="font-medium text-green-400 dark:text-green-400 hover:underline"
                               >
-                                <FaEdit />
-                              </Link>
+                                <FaImages />
+                              </button>
                               <button
                                 type="button"
                                 onClick={() =>

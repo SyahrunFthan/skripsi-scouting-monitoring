@@ -45,15 +45,19 @@ export const patchSchoolsById = (id) => API.get(`/schools/${id}`);
 export const deleteSchoolsById = (id) => API.delete(`/schools/${id}`);
 export const createImportDataApi = (data) =>
   API.post("/schools/import-data", data);
-export const patchSearchSchoolApi = (search) =>
-  API.get(`/schools/search-key?search=${search}`);
+export const patchSchoolHomeApi = () => API.get(`/schools/home`);
 export const patchSearchSchoolByIdApi = (id) =>
   API.get(`/schools/search-key/get-id/${id}`);
 // End Schools Path
 
 // Contribution Path
 export const postContributionApi = (data) =>
-  API.post("/contributions/create", data);
+  API.post("/contributions/create", data, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "multipart/form-data",
+    },
+  });
 export const patchContributionApi = (page, limit, search) =>
   API.get(`/contributions?page=${page}&limit=${limit}&search=${search}`);
 export const patchSchoolAndActivitiesApi = () =>
@@ -62,6 +66,8 @@ export const patchContributionById = (id) => API.get(`/contributions/${id}`);
 export const deleteContributionApi = (id) => API.delete(`/contributions/${id}`);
 export const updateContributionApi = (id, data) =>
   API.patch(`/contributions/${id}`, data);
+export const detailContributionApi = (id) =>
+  API.get(`/contributions/details/${id}`);
 // End Contribution Path
 
 // Dashboard Path
@@ -74,3 +80,23 @@ export const postAuthLoginApi = (data) => API.post("/auth", data);
 export const removeTokenApi = (id) => API.delete(`/auth/remove-token/${id}`);
 export const patchUserLoginApi = (id) => API.get(`/auth/${id}`);
 // End Auth Path
+
+// News Path
+export const postNewsApi = (data) =>
+  API.post("/news/create", data, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "multipart/form-data",
+    },
+  });
+export const getNewsApi = (search, page, limit) =>
+  API.get(`/news?search=${search}&page=${page}&limit=${limit}`);
+export const getNewsIdApi = (id) => API.get(`/news/${id}`);
+export const patchNewsApi = (id, data) =>
+  API.patch(`/news/update/${id}`, data, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "multipart/form-data",
+    },
+  });
+export const deleteNewsApi = (id) => API.delete(`/news/delete/${id}`);

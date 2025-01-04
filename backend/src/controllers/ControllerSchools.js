@@ -330,6 +330,69 @@ class SchoolControllers {
       return res.status(500).json({ message: error?.message });
     }
   }
+
+  static async getSchoolFromHome(req, res) {
+    try {
+      const schools = await Schools.findAll();
+      const totalWajibKegiatan = 12;
+
+      const contributions = await Contributions.findAll({
+        include: [
+          {
+            model: Schools,
+            as: "school",
+            foreignKey: "school_id",
+          },
+        ],
+      });
+
+      const schoolActivities = {};
+      schools.forEach((school) => {
+        schoolActivities[school.id_school] = {
+          total_kegiatan: 0,
+          name: school.name,
+          logo: school.path_image,
+          numberGudep: school.number_gudep,
+          alamat: school.address,
+        };
+      });
+
+      contributions.forEach((item) => {
+        const schoolId = item?.school_id;
+        if (schoolActivities[schoolId]) {
+          schoolActivities[schoolId].total_kehadiran++;
+          schoolActivities[schoolId].total_kegiatan++;
+        }
+      });
+
+      const objectData = Object.keys(schoolActivities).map((key) => ({
+        school_id: key,
+        name: schoolActivities[key].name,
+        numberGudep: schoolActivities[key].numberGudep,
+        logo: schoolActivities[key].logo,
+        ...schoolActivities[key],
+      }));
+
+      const labeledData = objectData.map((d) => {
+        const persentaseKegiatan =
+          (d.total_kegiatan / totalWajibKegiatan) * 100;
+
+        const aktif = persentaseKegiatan >= 70 ? 1 : 0;
+
+        return {
+          ...d,
+          aktif: aktif,
+          persentaseKegiatan: persentaseKegiatan.toFixed(2),
+        };
+      });
+
+      labeledData.sort((a, b) => b.total_kegiatan - a.total_kegiatan);
+
+      return res.status(200).json({ response: labeledData });
+    } catch (error) {
+      return res.status(500).json({ message: error?.message });
+    }
+  }
 }
 
 module.exports = SchoolControllers;

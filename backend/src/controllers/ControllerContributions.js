@@ -1,9 +1,10 @@
-const { Op, Sequelize } = require("sequelize");
+const { Op } = require("sequelize");
 const Activities = require("../models/Activities");
 const Contributions = require("../models/Contributions");
 const Schools = require("../models/Schools");
-const { DecisionTreeClassifier } = require("ml-cart");
-const Users = require("../models/Users");
+const path = require("path");
+const fs = require("fs");
+const Images = require("../models/Images");
 
 class ContributionController {
   static async patchDataContribution(req, res) {
@@ -74,33 +75,73 @@ class ContributionController {
     try {
       const { school, activity } = req.body;
 
-      const checkSuitable = await Contributions.findOne({
-        where: {
-          school_id: school,
-          activity_id: activity,
-        },
-      });
-
-      if (checkSuitable)
+      // Cek file yang diunggah
+      if (!req.files || !req.files.image1) {
         return res.status(400).json({
-          error: [
-            {
-              path: ["school"],
-              message: "Sekolah sudah mengikuti kegiatan ini!",
-            },
-          ],
+          error: [{ path: ["image1"], message: "Foto kegiatan harus diisi!" }],
         });
+      }
 
-      await Contributions.create({
+      const { image1, image2, image3 } = req.files;
+
+      // Generate nama file
+      const generateFilename = (file) =>
+        `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(
+          file.name
+        )}`;
+
+      const filename1 = generateFilename(image1);
+      const filename2 = image2 ? generateFilename(image2) : null;
+      const filename3 = image3 ? generateFilename(image3) : null;
+
+      // Pindahkan file
+      await image1.mv(`public/contributions/${filename1}`);
+      if (image2) await image2.mv(`public/contributions/${filename2}`);
+      if (image3) await image3.mv(`public/contributions/${filename3}`);
+
+      // Simpan data kontribusi
+      const contribution = await Contributions.create({
         school_id: school,
         activity_id: activity,
       });
+
+      // Simpan data gambar
+      const imagesData = [
+        {
+          contribution_id: contribution.id_contribution,
+          image_name: filename1,
+          image_path: `${req.protocol}://${req.get(
+            "host"
+          )}/public/contributions/${filename1}`,
+        },
+      ];
+      if (filename2)
+        imagesData.push({
+          contribution_id: contribution.id_contribution,
+          image_name: filename2,
+          image_path: `${req.protocol}://${req.get(
+            "host"
+          )}/public/contributions/${filename2}`,
+        });
+      if (filename3)
+        imagesData.push({
+          contribution_id: contribution.id_contribution,
+          image_name: filename3,
+          image_path: `${req.protocol}://${req.get(
+            "host"
+          )}/public/contributions/${filename3}`,
+        });
+
+      await Images.bulkCreate(imagesData);
 
       return res
         .status(201)
         .json({ message: "Berhasil menambahkan kontribusi!" });
     } catch (error) {
-      return res.status(500).json({ message: error?.message });
+      console.error("Error:", error);
+      return res
+        .status(500)
+        .json({ message: "Internal Server Error", error: error.message });
     }
   }
 
@@ -230,6 +271,24 @@ class ContributionController {
         totalActivity,
         totalContribution,
       });
+    } catch (error) {
+      return res.status(500).json({ message: error?.message });
+    }
+  }
+
+  static async detailContribution(req, res) {
+    try {
+      const { id } = req.params;
+      const response = await Images.findAll({
+        where: { contribution_id: id },
+      });
+
+      if (!response[0])
+        return res
+          .status(400)
+          .json({ message: "Foto kegiatan tidak ditemukan" });
+
+      return res.status(200).json({ response });
     } catch (error) {
       return res.status(500).json({ message: error?.message });
     }

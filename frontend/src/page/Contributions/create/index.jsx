@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DefaultLayout, FormContributionComponents } from "../../../components";
 import {
   patchSchoolAndActivitiesApi,
@@ -9,10 +9,14 @@ import { useNavigate } from "react-router-dom";
 
 const ContributionCreate = () => {
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({
     school: "",
     activity: "",
+    image1: null,
+    image2: null,
+    image3: null,
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -21,16 +25,27 @@ const ContributionCreate = () => {
 
   const createContribution = async (e) => {
     e.preventDefault();
+    const form = new FormData();
+    form.append("school", formData.school);
+    form.append("activity", formData.activity);
+    form.append("image1", formData.image1);
+    form.append("image2", formData.image2);
+    form.append("image3", formData.image3);
+
     try {
       setIsLoading(true);
-      const response = await postContributionApi(formData);
+      const response = await postContributionApi(form);
       if (response?.status == 201) {
         showSuccess(response?.data?.message);
         setErrors({});
         setFormData({
           school: "",
           activity: "",
+          image1: null,
+          image2: null,
+          image3: null,
         });
+        fileInputRef.current.value = "";
       }
     } catch (error) {
       if (error?.response?.status == 400) {
@@ -41,6 +56,8 @@ const ContributionCreate = () => {
           errorMessages[find] = err?.message;
         });
         setErrors(errorMessages);
+      } else {
+        console.log(error);
       }
     } finally {
       setIsLoading(false);
@@ -97,6 +114,7 @@ const ContributionCreate = () => {
         activities={activities}
         schools={schools}
         onSaveAndBack={createContributionAndBack}
+        fileInputRef={fileInputRef}
       />
     </DefaultLayout>
   );

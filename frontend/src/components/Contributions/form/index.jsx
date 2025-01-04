@@ -13,6 +13,7 @@ const FormContributionComponents = ({
   onSaveAndBack,
   activities,
   schools,
+  fileInputRef,
 }) => {
   return (
     <div className="flex flex-col w-full h-full">
@@ -69,6 +70,50 @@ const FormContributionComponents = ({
                 {errors?.activity && (
                   <p className="text-red-500">{errors?.activity}</p>
                 )}
+              </div>
+              <div className="flex flex-col mb-3 gap-2">
+                <label className="font-semibold text-sm">
+                  Foto <span className="text-red-500">*</span>
+                </label>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  className={`file-input file-input-bordered bg-white ${
+                    errors?.image1 && "file-input-error"
+                  }`}
+                  onChange={(e) => {
+                    setFormdata({
+                      ...formdata,
+                      image1: e.target.files[0],
+                    });
+                  }}
+                  accept="image/*"
+                />
+                {errors?.image1 && (
+                  <p className="text-red-500">{errors?.image1}</p>
+                )}
+              </div>
+              <div className="flex flex-col mb-3 gap-2">
+                <label className="font-semibold text-sm">Foto (Opsional)</label>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  className="file-input file-input-bordered bg-white"
+                  onChange={(e) =>
+                    setFormdata({ ...formdata, image2: e.target.files[0] })
+                  }
+                />
+              </div>
+              <div className="flex flex-col mb-3 gap-2">
+                <label className="font-semibold text-sm">Foto (Opsional)</label>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  className="file-input file-input-bordered bg-white"
+                  onChange={(e) =>
+                    setFormdata({ ...formdata, image3: e.target.files[0] })
+                  }
+                />
               </div>
             </div>
             <div className="flex flex-col w-full lg:w-[70%]">

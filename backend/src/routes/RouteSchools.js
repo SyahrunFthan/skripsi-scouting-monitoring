@@ -20,7 +20,7 @@ router.patch(
   SchoolControllers.updateSchools
 );
 router.get("/", Authentication.authenticate, SchoolControllers.getSchoolsData);
-router.get("/search-key", SchoolControllers.searchSchool);
+router.get("/home", SchoolControllers.getSchoolFromHome);
 router.get("/search-key/get-id/:id", SchoolControllers.getSchoolSearchById);
 router.get(
   "/:id",

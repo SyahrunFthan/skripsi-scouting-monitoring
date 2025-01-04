@@ -12,8 +12,11 @@ import {
   EditContribution,
   EditSchools,
   Home,
+  NewsCreate,
+  NewsPage,
   NotFound,
   Schools,
+  UpdateNews,
 } from "./page";
 import PrivateRoute from "./middleware/Private";
 
@@ -114,6 +117,31 @@ const App = () => {
           element={
             <PrivateRoute>
               <EditContribution />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin/news"
+          element={
+            <PrivateRoute>
+              <NewsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/news/create"
+          element={
+            <PrivateRoute>
+              <NewsCreate />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/news/:id"
+          element={
+            <PrivateRoute>
+              <UpdateNews />
             </PrivateRoute>
           }
         />

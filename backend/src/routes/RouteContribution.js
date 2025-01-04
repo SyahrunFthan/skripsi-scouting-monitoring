@@ -12,6 +12,7 @@ router.post(
   schemaValidate(Validation.schemaContributions),
   ContributionController.createContribution
 );
+router.get("/details/:id", ContributionController.detailContribution);
 router.get("/", ContributionController.patchDataContribution);
 router.get("/dashboard", ContributionController.patchDataDashboard);
 router.get(
