@@ -1,0 +1,9 @@
+export { default as BgAboutImg } from "./BgAbout.png";
+export { default as BgHomeImg } from "./BgHome.png";
+export { default as BgAddressImg } from "./BgAddress.png";
+export { default as BgChartImg } from "./BgChart.png";
+export { default as BgGalleryImg } from "./BgGallery.png";
+export { default as BgNewsImg } from "./BgNews.png";
+export { default as BgAdressImg } from "./BgAddress.png";
+export { default as CardImg } from "./Card.png";
+export { default as Card2Img } from "./Card2.png";

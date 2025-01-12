@@ -21,7 +21,9 @@ router.patch(
 );
 router.get("/", Authentication.authenticate, SchoolControllers.getSchoolsData);
 router.get("/home", SchoolControllers.getSchoolFromHome);
+router.get("/detail/:id", SchoolControllers.getSchoolByDetail);
 router.get("/search-key/get-id/:id", SchoolControllers.getSchoolSearchById);
+router.get("/search", SchoolControllers.searchSchool);
 router.get(
   "/:id",
   Authentication.authenticate,

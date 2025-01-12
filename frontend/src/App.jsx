@@ -19,13 +19,24 @@ import {
   UpdateNews,
 } from "./page";
 import PrivateRoute from "./middleware/Private";
+import News from "./page/Home/News";
+import Chart from "./page/Home/Chart";
+import About from "./page/Home/About";
+import Gallery from "./page/Home/Gallery";
+import Addrress from "./page/Home/Address";
+import DetailAbout from "./page/Home/About/Detail";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public Route */}
         <Route path="/" element={<Home />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/chart" element={<Chart />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/about/:uuid" element={<DetailAbout />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/address" element={<Addrress />} />
 
         <Route path="/admin/auth" element={<Auth />} />
 

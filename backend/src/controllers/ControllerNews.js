@@ -172,6 +172,19 @@ class NewsController {
       return res.status(500).json({ message: "Failed to delete news!" });
     }
   }
+
+  static async getNewsFromHome(req, res) {
+    try {
+      const response = await News.findAll({
+        limit: 5,
+        order: [["createdAt", "DESC"]],
+      });
+
+      return res.status(200).json({ response });
+    } catch (error) {
+      return res.status(500).json({ message: error?.message });
+    }
+  }
 }
 
 module.exports = NewsController;

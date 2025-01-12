@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const Activities = require("../models/Activities");
 const Contributions = require("../models/Contributions");
+const ImagesContribution = require("../models/Images");
 
 class SchoolControllers {
   static async getSchoolsData(req, res) {
@@ -265,7 +266,7 @@ class SchoolControllers {
 
   static async searchSchool(req, res) {
     try {
-      const limit = 4;
+      const limit = 2;
       const search = req.query.search;
 
       let response;
@@ -360,7 +361,6 @@ class SchoolControllers {
       contributions.forEach((item) => {
         const schoolId = item?.school_id;
         if (schoolActivities[schoolId]) {
-          schoolActivities[schoolId].total_kehadiran++;
           schoolActivities[schoolId].total_kegiatan++;
         }
       });
@@ -389,6 +389,50 @@ class SchoolControllers {
       labeledData.sort((a, b) => b.total_kegiatan - a.total_kegiatan);
 
       return res.status(200).json({ response: labeledData });
+    } catch (error) {
+      return res.status(500).json({ message: error?.message });
+    }
+  }
+
+  static async getSchoolByDetail(req, res) {
+    try {
+      const { id } = req.params;
+      const totalWajibKegiatan = 12;
+
+      const school = await Schools.findByPk(id);
+
+      const contribution = await Contributions.findAll({
+        include: [
+          {
+            model: ImagesContribution,
+            as: "images",
+            foreignKey: "contribution_id",
+          },
+          {
+            model: Activities,
+            as: "activity",
+          },
+        ],
+        where: {
+          school_id: id,
+        },
+      });
+
+      const totalKegiatanDiikuti = contribution.reduce((total, d) => {
+        return total + (d.activity ? 1 : 0);
+      }, 0);
+
+      const persentaseKegiatan =
+        (totalKegiatanDiikuti / totalWajibKegiatan) * 100;
+
+      const persentaseTidakDiikuti = 100 - persentaseKegiatan;
+
+      return res.status(200).json({
+        school,
+        contribution,
+        active: persentaseKegiatan,
+        notActive: persentaseTidakDiikuti,
+      });
     } catch (error) {
       return res.status(500).json({ message: error?.message });
     }

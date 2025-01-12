@@ -100,3 +100,11 @@ export const patchNewsApi = (id, data) =>
     },
   });
 export const deleteNewsApi = (id) => API.delete(`/news/delete/${id}`);
+export const getAllNewsApi = () => API.get("/news/get-all");
+// End News Path
+
+// Landing Page Path
+export const searchSchoolApi = (search) =>
+  API.get(`/schools/search?search=${search}`);
+export const patchSchoolDetailApi = (id) => API.get(`/schools/detail/${id}`);
+export const patchImagesApi = () => API.get("/images");

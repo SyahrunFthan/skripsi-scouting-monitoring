@@ -12,6 +12,7 @@ const routeSchools = require("./routes/RouteSchools");
 const routeContribution = require("./routes/RouteContribution");
 const routeAuth = require("./routes/RouteAuth");
 const routeNews = require("./routes/RouteNews");
+const routeImages = require("./routes/RouteImages");
 // const createModel = require("./models/News");
 
 const app = express();
@@ -37,6 +38,7 @@ app.use("/activities", routeActivities);
 app.use("/schools", routeSchools);
 app.use("/contributions", routeContribution);
 app.use("/news", routeNews);
+app.use("/images", routeImages);
 
 const port = process.env.PORT_APP || 5001;
 

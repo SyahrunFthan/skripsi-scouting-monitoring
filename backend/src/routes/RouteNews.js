@@ -23,6 +23,7 @@ router.delete(
   Authentication.authenticate,
   NewsController.deleteNews
 );
+router.get("/get-all", NewsController.getNewsFromHome);
 router.get("/:id", Authentication.authenticate, NewsController.getNewsId);
 router.get("/", Authentication.authenticate, NewsController.getAllNews);
 

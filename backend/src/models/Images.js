@@ -25,7 +25,10 @@ const ImagesContribution = db.define(
   }
 );
 
-Contributions.hasMany(ImagesContribution);
+Contributions.hasMany(ImagesContribution, {
+  foreignKey: "contribution_id",
+  as: "images",
+});
 ImagesContribution.belongsTo(Contributions, {
   foreignKey: "contribution_id",
   as: "contributions",
