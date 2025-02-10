@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BgNewsImg, CardImg } from "../../../assets";
+import { BgNewsImg } from "../../../assets";
 import Navbar from "../../../components/Landing/Navbar/Navbar";
 import { getAllNewsApi } from "../../../utils/server";
 
@@ -21,16 +21,13 @@ const News = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen">
-      <img
-        src={BgNewsImg}
-        alt="imgNews"
-        className="absolute w-full h-full object-cover contrast-150 blur-sm"
-      />
-      <div className="absolute w-full h-full bg-red-600/50"></div>
+    <div
+      className="relative w-full min-h-screen bg-cover bg-contrast-200 bg-red-600/50 pb-20"
+      style={{ backgroundImage: `url(${BgNewsImg})` }}
+    >
       <Navbar color="white" />
 
-      <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full flex flex-col justify-between px-20 py-10 z-10 space-y-10">
+      <div className="h-full w-full flex flex-col justify-between px-20 z-10 space-y-10">
         <p className="text-white text-5xl font-bold max-w-xl">
           Seputar Pramuka Indonesia
         </p>

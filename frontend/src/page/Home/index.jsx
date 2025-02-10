@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { BgHomeImg, Card2Img, CardImg } from "../../assets";
 import Navbar from "../../components/Landing/Navbar/Navbar";
-import { useEffect, useState } from "react";
 import { searchSchoolApi } from "../../utils/server";
 
 const Home = () => {
@@ -26,17 +26,13 @@ const Home = () => {
   }, [search]);
 
   return (
-    <div className="relative min-h-screen">
-      <img
-        src={BgHomeImg}
-        alt="imgHome"
-        className="absolute w-full h-full object-cover contrast-150"
-      />
-      <div className="absolute w-full h-full bg-black/50"></div>
-
+    <div
+      className="relative w-full min-h-screen bg-cover bg-contrast-200 bg-black/50 pb-20"
+      style={{ backgroundImage: `url(${BgHomeImg})` }}
+    >
       <Navbar color="white" />
 
-      <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full flex flex-col items-center justify-center z-10 space-y-14">
+      <div className="h-full w-full flex flex-col items-center justify-center z-10 space-y-14">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-white font-bold text-5xl max-w-5xl text-center">
             SISTEM MONITORING KEGIATAN KEPRAMUKAAN KOTA PALU

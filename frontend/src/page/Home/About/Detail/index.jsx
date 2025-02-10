@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { BgGalleryImg } from "../../../../assets";
+import { useParams } from "react-router-dom";
 import Navbar from "../../../../components/Landing/Navbar/Navbar";
 import PieChart from "../../../../components/Landing/PieChart/PieChart";
 import { patchSchoolDetailApi } from "../../../../utils/server";
-import { useParams, useRoutes } from "react-router-dom";
-import moment from "moment";
 
 const DetailAbout = () => {
   const { uuid } = useParams();

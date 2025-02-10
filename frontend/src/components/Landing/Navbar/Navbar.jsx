@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const Navbar = ({ color }) => {
   return (
-    <nav className="absolute top-10 right-20 flex items-center justify-between gap-10 z-20">
+    <nav className="flex items-center justify-between gap-10 z-20 self-end justify-self-end py-10 mr-20">
       <a
         href="/"
         className={`font-semibold cursor-pointer hover:font-extrabold ${

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BgGalleryImg, Card2Img } from "../../../assets";
+import { BgGalleryImg } from "../../../assets";
 import Navbar from "../../../components/Landing/Navbar/Navbar";
 import { patchImagesApi } from "../../../utils/server";
 
@@ -20,16 +20,13 @@ const Gallery = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen">
-      <img
-        src={BgGalleryImg}
-        alt="imgNews"
-        className="absolute w-full h-full bg-cover contrast-200"
-      />
-      <div className="absolute w-full h-full bg-blue-600/20"></div>
+    <div
+      className="relative w-full min-h-screen bg-cover bg-contrast-200 pb-20"
+      style={{ backgroundImage: `url(${BgGalleryImg})` }}
+    >
       <Navbar color="white" />
 
-      <div className="absolute top left-0 right-0 bottom-0 h-full w-full flex flex-col justify-center items-center px-20 z-10 space-y-5">
+      <div className="h-full w-full flex flex-col justify-center items-center px-20 z-10 space-y-5">
         <h1 className="text-white text-center text-3xl font-bold max-w-sm">
           GALERI PRAMUKA KWARCAB KOTA PALU
         </h1>
@@ -83,7 +80,7 @@ const Gallery = () => {
             ))}
           </div>
         </div>
-        <p className="text-sm font-bold text-center max-w-7xl">
+        <p className="text-white/60 text-sm font-bold text-center max-w-7xl">
           Sekolah berkomitmen mendukung pembentukan karakter siswa melalui
           pendidikan yang holistik, termasuk pengembangan jiwa kepemimpinan dan
           kedisiplinan melalui kegiatan kepramukaan. Berlokasi di [Alamat

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BgAboutImg } from "../../../assets";
 import Navbar from "../../../components/Landing/Navbar/Navbar";
-import { useNavigate } from "react-router-dom";
 import { patchSchoolHomeApi } from "../../../utils/server";
 
 const About = () => {
@@ -64,16 +64,13 @@ const About = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen">
-      <img
-        src={BgAboutImg}
-        alt="imgNews"
-        className="absolute w-full h-full bg-cover contrast-200"
-      />
-      <div className="absolute w-full h-full bg-blue-500/50"></div>
+    <div
+      className="relative w-full min-h-screen bg-cover bg-contrast-200 bg-blue-500/60 pb-20"
+      style={{ backgroundImage: `url(${BgAboutImg})` }}
+    >
       <Navbar color="white" />
 
-      <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full flex flex-col items-center justify-center z-10 space-y-7">
+      <div className="h-full w-full flex flex-col items-center justify-center z-10 space-y-7">
         <h1 className="text-white text-center text-3xl font-bold">
           PROFIL GUGUS DEPAN PRAMUKA KOTA PALU
         </h1>
@@ -130,7 +127,7 @@ const About = () => {
             </tbody>
           </table>
         </div>
-        <p className="text-sm font-bold text-center max-w-6xl">
+        <p className="text-white/60 text-sm font-bold text-center max-w-6xl">
           Sekolah berkomitmen mendukung pembentukan karakter siswa melalui
           pendidikan yang holistik, termasuk pengembangan jiwa kepemimpinan dan
           kedisiplinan melalui kegiatan kepramukaan. Berlokasi di [Alamat

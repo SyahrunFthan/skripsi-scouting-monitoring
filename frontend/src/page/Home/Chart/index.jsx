@@ -68,16 +68,13 @@ const Chart = () => {
   };
 
   return (
-    <div className="relative min-h-screen">
-      <img
-        src={BgChartImg}
-        alt="imgNews"
-        className="absolute w-full h-full object-cover contrast-200"
-      />
-      <div className="absolute w-full h-full bg-white/90"></div>
+    <div
+      className="relative w-full min-h-screen bg-cover bg-contrast-200 bg-white/90 pb-20"
+      style={{ backgroundImage: `url(${BgChartImg})` }}
+    >
       <Navbar color="black" />
 
-      <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full flex flex-col justify-center items-center px-20 py-10 z-10 space-y-10">
+      <div className="h-full w-full flex flex-col justify-center items-center px-20 py-10 z-10 space-y-10">
         <h1 className="text-3xl font-bold max-w-xl">
           Grafik Keaktifan Kegiatan
         </h1>
